@@ -347,37 +347,39 @@ def main():
     logger.info("Getting model named resnet18")
     model, optimizer, criterion, lr_scheduler = get_model(len(class_names))
 
-    conv_features = dict(train=[], val=[])
-    labels_list = dict(train=[], val=[])
+    print model
 
-    logger.info("Generating convnet features.......")
-    conv_features['train'], labels_list['train'] = preconvfeat(dataloaders, image_datasets, model, phase='train')
+    # conv_features = dict(train=[], val=[])
+    # labels_list = dict(train=[], val=[])
 
-    conv_features['val'], labels_list['val'] = preconvfeat(dataloaders, image_datasets, model, phase='val')
+    # logger.info("Generating convnet features.......")
+    # conv_features['train'], labels_list['train'] = preconvfeat(dataloaders, image_datasets, model, phase='train')
 
-    logger.info("Saving to disk convnet fetures")
-    save_conv_fetures(conv_features, labels_list, 'model')
+    # conv_features['val'], labels_list['val'] = preconvfeat(dataloaders, image_datasets, model, phase='val')
 
-    logger.info("Load convnet fetures from disk")
-    conv_features, labels_list = load_conv_fetures('model')
+    # logger.info("Saving to disk convnet fetures")
+    # save_conv_fetures(conv_features, labels_list, 'model')
 
-    logger.info("Starting model training..........")
-    kwargs = {
-        'dataloaders': dataloaders,
-        'image_datasets': image_datasets,
-        'class_names': class_names,
-        'conv_features': conv_features,
-        'labels_list': labels_list
-    }
-    model = train_model(model, optimizer, criterion, lr_scheduler, num_epochs=NUM_EPOCHS, **kwargs)
+    # logger.info("Load convnet fetures from disk")
+    # conv_features, labels_list = load_conv_fetures('model')
 
-    logger.info("Load model from disk")
-    state = load_model('resnet-preconvfet.pth.tar')
-    model.load_state_dict(state['state_dict'])
+    # logger.info("Starting model training..........")
+    # kwargs = {
+    #     'dataloaders': dataloaders,
+    #     'image_datasets': image_datasets,
+    #     'class_names': class_names,
+    #     'conv_features': conv_features,
+    #     'labels_list': labels_list
+    # }
+    # model = train_model(model, optimizer, criterion, lr_scheduler, num_epochs=NUM_EPOCHS, **kwargs)
 
-    sample_submission_path = 'sample_submission.csv'
-    test_data_dir = 'mydata/test'
-    gen_kaggle_submission(model, test_data_dir, sample_submission_path)
+    # logger.info("Load model from disk")
+    # state = load_model('resnet-preconvfet.pth.tar')
+    # model.load_state_dict(state['state_dict'])
+
+    # sample_submission_path = 'sample_submission.csv'
+    # test_data_dir = 'mydata/test'
+    # gen_kaggle_submission(model, test_data_dir, sample_submission_path)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,3 @@
+2018-03-11 02:10:48,514 - model-resnet-log - INFO - Loading data from  mydata folder
+2018-03-11 02:10:48,515 - model-resnet-log - INFO - Number of classes found: 2
+2018-03-11 02:10:48,515 - model-resnet-log - INFO - Getting model named resnet18
